@@ -17,6 +17,7 @@ public class Descompactador {
         extension= "." + fileComponents[1];
         System.out.println(extension);
         readFile(path);
+        System.out.println("priority list: " + filaDePrioridades);
         //createPriorityList();
         arvore = new Arvore((FilaDePrioridades)filaDePrioridades.clone());
         System.out.println(arvore);
@@ -60,9 +61,12 @@ public class Descompactador {
         String binarioAlt = this.binario;
         ArrayList<Comparable> bytesAlt = new ArrayList<>();
         while (binarioAlt != "") {
+            if (binarioAlt.length() <= 5) {
+                System.out.println("stop");
+            }
             ArrayList<Comparable> resultado = arvore.encontraByte(binarioAlt);
-                binarioAlt = binarioAlt.substring((Integer)resultado.get(0)+1, binarioAlt.length());
-                bytesAlt.add(resultado.get(1));
+            binarioAlt = binarioAlt.substring((Integer)resultado.get(0));
+            bytesAlt.add(resultado.get(1));
         }
 
         byte[] bytes = new byte[bytesAlt.size()];

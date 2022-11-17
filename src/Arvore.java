@@ -159,17 +159,16 @@ public class Arvore implements Cloneable
 	public ArrayList<Comparable> encontraByte(String binario) {
 		No no = this.raiz;
 		ArrayList<Comparable> ret = new ArrayList<>();
-		for (int i = 0; i < binario.length(); i++) {
-			if (no.getDir() == null && no.getEsq() == null) {
+		for (int i = 0; i <= binario.length(); i++) {
+			if ((no.getDir() == null) && (no.getEsq() == null)) {
 				ret.add(i);
 				ret.add(no.getInfo());
-				//ret.put(binario.substring(0, i+1),no.getInfo());
 				break;
 			}
 			if (binario.charAt(i) == '0') {
 				no = no.getEsq();
 			}
-			else {
+			else if (binario.charAt(i) == '1') {
 				no = no.getDir();
 			}
 		}

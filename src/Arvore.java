@@ -1,43 +1,10 @@
-import java.beans.PropertyEditorSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Arvore implements Cloneable
 {
 	private No raiz=null;
-
-	// public void inclua (X i) throws Exception
-	// {
-	// 	if (i==null) throw new Exception ("Informacao Ausente");
-
-	// 	if (this.raiz==null)
-	// 	{
-	// 		this.raiz = new No (i);
-	// 		return;
-	// 	}
-
-	// 	No  ant=null, atual=this.raiz;
-	// 	int comp;
-
-	// 	do
-	// 	{
-    // 		comp = i.compareTo((X) atual.getInfo());
-
-	// 		if (comp==0) throw new Exception ("Elemento repetido");
-
-	// 		ant=atual;
-	// 		if (comp<0)
-	// 			atual=atual.getEsq();
-	// 		else
-	// 		    atual=atual.getDir();
-	// 	}
-	// 	while (atual!=null);
-
-	// 	if (comp<0)
-	// 		ant.setEsq(new No (i));
-	// 	else
-	// 		ant.setDir(new No (i));
-	// }
 
 	private String preOrdem (No r)
 	{
@@ -65,64 +32,6 @@ public class Arvore implements Cloneable
 				this.posOrdem(r.getDir())+" "+
 			   r.getInfo();
 	}
-
-	// public void remova (X i) throws Exception
-	// {
-	// 	No aRemover=this.raiz, pai=null;
-
-	// 	for(;;)
-	// 	{
-	// 		if (aRemover==null) break;
-
-	// 		int cmp=i.compareTo((X) aRemover.getInfo());
-
-	// 		if (cmp==0) break;
-
-	// 		pai=aRemover;
-	// 		if (cmp<0)
-	// 			aRemover = aRemover.getEsq();
-	// 		else
-	// 			aRemover = aRemover.getDir();
-	// 	}
-
-	// 	if (aRemover==null) throw new Exception ("Remocao de algo inexistente");
-
-	// 	if (aRemover.getEsq()==null && aRemover.getDir()==null) // nó a remover é folha
-	// 		if (aRemover==this.raiz)
-	// 			this.raiz=null;
-	// 		else
-	// 		if (aRemover==pai.getEsq())
-	// 			pai.setEsq(null);
-	// 		else // aRemover==pai.getDir()
-	// 			pai.setDir(null);
-	// 	else // não é folha
-	// 		if (aRemover.getEsq()==null || aRemover.getDir()==null) // nó a remover tem 1 filho só
-	// 		{
-	// 			No filho;
-	// 			if (aRemover.getEsq()!=null)
-	// 				filho=aRemover.getEsq();
-	// 			else // aRemover.getDir()!=null
-	// 				filho=aRemover.getDir();
-
-	// 			if (aRemover==pai.getEsq())
-	// 				pai.setEsq(filho);
-	// 			else // aRemover==pai.getDir()
-	// 				pai.setDir(filho);
-	// 		}
-	// 		else // nó a remover tem 2 filhos
-	// 		{
-	// 			No extrDirDaSubArvEsq = aRemover.getEsq();
-	// 			while (extrDirDaSubArvEsq.getDir()!=null)
-	// 				extrDirDaSubArvEsq=extrDirDaSubArvEsq.getDir();
-
-	// 			X aSubstituir = (X) extrDirDaSubArvEsq.getInfo();
-
-	// 			this.remova(aSubstituir);
-
-	// 			aRemover.setInfo(aSubstituir);
-	// 		}
-
-	// }
 
 	@Override
 	public String toString ()
@@ -244,6 +153,26 @@ public class Arvore implements Cloneable
 		catch (Exception erro)
 		{}
 
+		return ret;
+	}
+
+	public ArrayList<Comparable> encontraByte(String binario) {
+		No no = this.raiz;
+		ArrayList<Comparable> ret = new ArrayList<>();
+		for (int i = 0; i < binario.length(); i++) {
+			if (no.getDir() == null && no.getEsq() == null) {
+				ret.add(i);
+				ret.add(no.getInfo());
+				//ret.put(binario.substring(0, i+1),no.getInfo());
+				break;
+			}
+			if (binario.charAt(i) == '0') {
+				no = no.getEsq();
+			}
+			else {
+				no = no.getDir();
+			}
+		}
 		return ret;
 	}
 }

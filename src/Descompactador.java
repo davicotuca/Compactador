@@ -11,7 +11,7 @@ public class Descompactador {
     String extension;
     String fileName;
 
-    public void decompact(String compactedPath) throws Exception {
+    public void extract(String compactedPath) throws Exception {
         String path = compactedPath.replace(".compac","");
         String[] fileComponents = path.split("\\.");
 
@@ -20,7 +20,7 @@ public class Descompactador {
 
         readFile(compactedPath);
         arvore = new Arvore((FilaDePrioridades)filaDePrioridades.clone());
-        createDecompactedFile();
+        createExtractedFile();
     }
 
     private void readFile(String path) throws IOException {
@@ -40,8 +40,8 @@ public class Descompactador {
         bytesFreq.forEach((key, value) -> filaDePrioridades.queue(new No(key, value)));
     }
 
-    private void createDecompactedFile() throws Exception{
-        byte[] bytes = decompactFromTree();
+    private void createExtractedFile() throws Exception{
+        byte[] bytes = extractBytesFromTree();
         try {
             FileOutputStream outputStream = new FileOutputStream(fileName+"(1)"+extension);
             outputStream.write(bytes);
@@ -51,11 +51,11 @@ public class Descompactador {
         }
     }
 
-    private byte[] decompactFromTree() {
+    private byte[] extractBytesFromTree() {
         String binarioAlt = this.binario;
         ArrayList<Comparable> bytesAlt = new ArrayList<>();
         while (binarioAlt != "") {
-            ArrayList<Comparable> resultado = arvore.encontraByte(binarioAlt);
+            ArrayList<Comparable> resultado = arvore.findByte(binarioAlt);
             binarioAlt = binarioAlt.substring((Integer)resultado.get(0));
             bytesAlt.add(resultado.get(1));
         }

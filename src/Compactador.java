@@ -13,9 +13,7 @@ public class Compactador
     public void compact(String path) throws Exception {
         readFile(path);
         createPriorityList();
-        System.out.println(filaDePrioridades);
         arvore = new Arvore((FilaDePrioridades)filaDePrioridades.clone());
-        System.out.println(arvore);
         createCompactFile(path);
     }
 

@@ -7,38 +7,32 @@ public class Descompactador {
     String binario;
     FilaDePrioridades filaDePrioridades = new FilaDePrioridades();
     Arvore arvore;
+
     String extension;
     String fileName;
 
-    public void decompact(String path) throws Exception {
-        String path1 = path.replace(".compac","");
-        String[] fileComponents = path1.split("\\.");
+    public void decompact(String compactedPath) throws Exception {
+        String path = compactedPath.replace(".compac","");
+        String[] fileComponents = path.split("\\.");
+
         fileName = fileComponents[0];
         extension= "." + fileComponents[1];
-        System.out.println(extension);
-        readFile(path);
-        System.out.println("priority list: " + filaDePrioridades);
-        //createPriorityList();
+
+        readFile(compactedPath);
         arvore = new Arvore((FilaDePrioridades)filaDePrioridades.clone());
-        System.out.println(arvore);
         createDecompactedFile();
     }
 
     private void readFile(String path) throws IOException {
-        // read file from path
         String content = Files.readString(Paths.get(path));
-        // separate file according to space
         List<String> separatedContent = Arrays.asList(content.split(" "));
-        //get the binary (last section)
         binario = separatedContent.get(separatedContent.size() - 1);
 
-        //map the byte frequency and to variable bytesFreq
         Map<Integer, Integer> bytesFreq = new HashMap<>();
         for (int i = 0; i < separatedContent.size() - 1; i+=2) {
             bytesFreq.put(Integer.valueOf(separatedContent.get(i)), Integer.valueOf(separatedContent.get(i+1)));
         }
 
-        // montar a fila de prioridade
         createPriorityList(bytesFreq);
     }
 
@@ -57,13 +51,10 @@ public class Descompactador {
         }
     }
 
-    private byte[] decompactFromTree() throws Exception {
+    private byte[] decompactFromTree() {
         String binarioAlt = this.binario;
         ArrayList<Comparable> bytesAlt = new ArrayList<>();
         while (binarioAlt != "") {
-            if (binarioAlt.length() <= 5) {
-                System.out.println("stop");
-            }
             ArrayList<Comparable> resultado = arvore.encontraByte(binarioAlt);
             binarioAlt = binarioAlt.substring((Integer)resultado.get(0));
             bytesAlt.add(resultado.get(1));

@@ -134,8 +134,8 @@ public class Arvore implements Cloneable
 			toHashMap(n.getEsq(), map, codigo+"0");
 	}
 
-	public Map<Byte, String> toHashMap() {
-		Map<Byte, String> map = new HashMap<>();
+	public HashMap<Byte, String> toHashMap() {
+		HashMap<Byte, String> map = new HashMap<>();
 		toHashMap(this.raiz, map, "");
 		return map;
 	}

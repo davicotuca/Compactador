@@ -3,14 +3,13 @@ public class Main {
 
         Compactador compactador = new Compactador();
         try {
-           compactador.compact("C:\\Users\\natas\\Documents\\COTUCA\\Repositorios\\Compactador\\src\\sun.png");
+           compactador.compact("C:\\Users\\natas\\Documents\\COTUCA\\Repositorios\\Compactador\\src\\clipart940165.png");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         Descompactador descompactador = new Descompactador();
         try {
-            descompactador.extract("C:\\Users\\natas\\Documents\\COTUCA\\Repositorios\\Compactador\\src\\sun.png.compac");
+            descompactador.extract("C:\\Users\\natas\\Documents\\COTUCA\\Repositorios\\Compactador\\src\\clipart940165.png.compac");
         } catch (Exception e) {
             throw new RuntimeException((e));
         }

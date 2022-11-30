@@ -1,8 +1,8 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Compactador
 {
@@ -19,7 +19,17 @@ public class Compactador
 
     private void createCompactFile(String path){
         try {
+            //File myObj = new File(path+".txt");
+
+            //ByteOutputStream file = new ByteOutputStream(myObj);
+            //file.write(compactFromTree(arvore));
+            //file.close();
+
+            //FileOutputStream outputStream = new FileOutputStream(path+".compac");
+            //outputStream.write(compactFromTree(arvore));
+
             File myObj = new File(path+".compac");
+            //outputStream.write(filaDePrioridades.toString());
             FileWriter myWriter = new FileWriter(myObj.getAbsolutePath());
             myWriter.write(filaDePrioridades.toString());
             myWriter.write(compactFromTree(arvore));
@@ -31,11 +41,25 @@ public class Compactador
     }
 
     private String compactFromTree(Arvore a){
-        String result = "";
-        Map<Byte, String>  map = a.toHashMap();
+        ArrayList<String> result1 = new ArrayList<>();
+        HashMap<Byte, String>  map = a.toHashMap();
         for (byte fileByte : this.fileBytes) {
-            result += map.get(fileByte);
+            result1.add(map.get(fileByte));
         }
+
+        String result = result1.stream().collect(Collectors.joining(""));;
+
+        //byte[] bytes = new byte[result.length()];
+
+        //for (int i = 0; i < result.length(); i++) {
+        //    bytes[i] = (byte) result.charAt(i);
+        //}
+
+        //byte[] bytes = new byte[result1.size()];
+        //for (int i = 0; i < result1.size(); i++) {
+        //    bytes[i] = (byte) Integer.parseInt(result1.get(i));
+        //}
+
         return result;
     }
 

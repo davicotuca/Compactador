@@ -6,7 +6,7 @@ import java.util.*;
 public class Descompactador {
     String binario;
     FilaDePrioridades filaDePrioridades = new FilaDePrioridades();
-    Arvore arvore;
+    ArvoreHuffman arvore;
 
     String extension;
     String fileName;
@@ -19,7 +19,7 @@ public class Descompactador {
         extension= "." + fileComponents[1];
 
         readFile(compactedPath);
-        arvore = new Arvore((FilaDePrioridades)filaDePrioridades.clone());
+        arvore = new ArvoreHuffman((FilaDePrioridades)filaDePrioridades.clone());
         createExtractedFile();
     }
 
